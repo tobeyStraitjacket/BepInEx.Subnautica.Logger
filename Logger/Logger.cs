@@ -1,7 +1,7 @@
 ﻿using BepInEx.Logging;
 using QModManager.API;
 
-namespace BepInEx
+namespace BepInEx.Subnautica
 {
     internal static class Logger
     {

@@ -1,11 +1,4 @@
 ﻿using BepInEx.Logging;
-#if SUBNAUTICA
-using Oculus.Newtonsoft.Json;
-using Oculus.Newtonsoft.Json.Converters;
-#elif BELOWZERO
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-#endif
 using QModManager.API;
 
 namespace BepInEx

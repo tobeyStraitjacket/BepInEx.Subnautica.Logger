@@ -8,22 +8,22 @@ namespace BepInEx.Subnautica
 {
     internal class Logger : MonoBehaviour
     {
-        private static Logger _instance;
-        private static Logger instance
-            => _instance ??= new GameObject("BepInEx.Subnautica.Logger").AddComponent<Logger>();
+        private static Logger instance;
+        private static Logger Instance
+            => instance ??= new GameObject("BepInEx.Subnautica.Logger").AddComponent<Logger>();
 
-        private static ManualLogSource _logger;
-        public static ManualLogSource logger
-            => _logger ??= Logging.Logger.CreateLogSource(QModServices.Main.GetMyMod().DisplayName);
+        private static ManualLogSource logSource;
+        public static ManualLogSource LogSource
+            => logSource ??= Logging.Logger.CreateLogSource(QModServices.Main.GetMyMod().DisplayName);
 
         private bool updateExecuting = false;
-        private List<string> DisplayMessages = new List<string>();
-        private List<object> LogDebugs = new List<object>();
-        private List<object> LogErrors = new List<object>();
-        private List<object> LogFatals = new List<object>();
-        private List<object> LogInfos = new List<object>();
-        private List<object> LogMessages = new List<object>();
-        private List<object> LogWarnings = new List<object>();
+        private readonly List<string> DisplayMessages = new List<string>();
+        private readonly List<object> LogDebugs = new List<object>();
+        private readonly List<object> LogErrors = new List<object>();
+        private readonly List<object> LogFatals = new List<object>();
+        private readonly List<object> LogInfos = new List<object>();
+        private readonly List<object> LogMessages = new List<object>();
+        private readonly List<object> LogWarnings = new List<object>();
         private void Update()
         {
             updateExecuting = true;
@@ -54,45 +54,45 @@ namespace BepInEx.Subnautica
             updateExecuting = false;
         }
 
-        public static void Log(LogLevel level, object data) => logger.Log(level, data);
+        public static void Log(LogLevel level, object data) => LogSource.Log(level, data);
 
-        public static void LogDebug(object data) => logger.LogDebug(data);
+        public static void LogDebug(object data) => LogSource.LogDebug(data);
 
-        public static void LogError(object data) => logger.LogError(data);
+        public static void LogError(object data) => LogSource.LogError(data);
 
-        public static void LogFatal(object data) => logger.LogFatal(data);
+        public static void LogFatal(object data) => LogSource.LogFatal(data);
 
-        public static void LogInfo(object data) => logger.LogInfo(data);
+        public static void LogInfo(object data) => LogSource.LogInfo(data);
 
-        public static void LogMessage(object data) => logger.LogMessage(data);
+        public static void LogMessage(object data) => LogSource.LogMessage(data);
 
-        public static void LogWarning(object data) => logger.LogWarning(data);
+        public static void LogWarning(object data) => LogSource.LogWarning(data);
 
         private const int delay = 500;
         private static async Task LogAsync(object data, List<object> list)
         {
-            while (instance.updateExecuting)
+            while (Instance.updateExecuting)
                 await Task.Delay(delay);
             list.Add(data);
         }
 
-        public static async Task LogDebugAsync(object data) => await LogAsync(data, instance.LogDebugs);
+        public static async Task LogDebugAsync(object data) => await LogAsync(data, Instance.LogDebugs);
 
-        public static async Task LogErrorAsync(object data) => await LogAsync(data, instance.LogErrors);
+        public static async Task LogErrorAsync(object data) => await LogAsync(data, Instance.LogErrors);
 
-        public static async Task LogFatalAsync(object data) => await LogAsync(data, instance.LogFatals);
+        public static async Task LogFatalAsync(object data) => await LogAsync(data, Instance.LogFatals);
 
-        public static async Task LogInfoAsync(object data) => await LogAsync(data, instance.LogInfos);
+        public static async Task LogInfoAsync(object data) => await LogAsync(data, Instance.LogInfos);
 
-        public static async Task LogMessageAsync(object data) => await LogAsync(data, instance.LogMessages);
+        public static async Task LogMessageAsync(object data) => await LogAsync(data, Instance.LogMessages);
 
-        public static async Task LogWarningAsync(object data) => await LogAsync(data, instance.LogWarnings);
+        public static async Task LogWarningAsync(object data) => await LogAsync(data, Instance.LogWarnings);
 
         public static async Task DisplayMessageAsync(object data)
         {
-            while (instance.updateExecuting)
+            while (Instance.updateExecuting)
                 await Task.Delay(delay);
-            instance.DisplayMessages.Add(data.ToString());
+            Instance.DisplayMessages.Add(data.ToString());
         }
     }
 }

@@ -24,7 +24,10 @@ namespace BepInEx.Subnautica
         private readonly List<object> LogInfos = new List<object>();
         private readonly List<object> LogMessages = new List<object>();
         private readonly List<object> LogWarnings = new List<object>();
+
+#pragma warning disable IDE0051 // Remove unused private members
         private void Update()
+#pragma warning restore IDE0051 // Remove unused private members
         {
             updateExecuting = true;
 
